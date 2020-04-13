@@ -2,6 +2,7 @@ package com.myflappybird.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -52,6 +53,7 @@ public class FlappyBird extends ApplicationAdapter {
 
 	Rectangle[] topTubeRect;
 	Rectangle[] bottomTubeRect;
+	private Music music_level1;
 
 
 
@@ -84,6 +86,9 @@ public class FlappyBird extends ApplicationAdapter {
 		font=new BitmapFont();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(10);
+		music_level1 = Gdx.audio.newMusic(Gdx.files.internal("lightitup.mp3"));
+		music_level1.setLooping(true);
+		music_level1.play();
 
 		startGame();
 
@@ -123,6 +128,8 @@ public class FlappyBird extends ApplicationAdapter {
 
 		if(gameState == 1)
 		{
+			music_level1.play();
+
 			if(tubeX[scoretube] < Gdx.graphics.getWidth()/2)
 			{
 				score++;
@@ -198,6 +205,7 @@ public class FlappyBird extends ApplicationAdapter {
 		}
 		else if(gameState == 2)
 		{
+			music_level1.stop();
 			batch.draw(gameover,Gdx.graphics.getWidth()/2-gameover.getWidth()/2,Gdx.graphics.getHeight()/2-gameover.getHeight()/2);
 			if(Gdx.input.justTouched())
 			{
@@ -206,7 +214,7 @@ public class FlappyBird extends ApplicationAdapter {
 				score=0;
 				scoretube=0;
 				velocity=0;
-				
+
 
 
 			}
